@@ -4,6 +4,12 @@ import { IUsersRepository } from "../user-repository";
 export class InMemoryUsersRepositoryTest implements IUsersRepository {
   public bd: User[] = [];
 
+  async findUserById(id: string) {
+    const user = this.bd.find((user) => user.id === id);
+    if (!user) return null;
+    return user;
+  }
+
   async findUserByEmail(email: string) {
     const user = this.bd.find((user) => user.email === email);
     if (!user) return null;
