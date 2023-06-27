@@ -13,17 +13,18 @@ export class RegisterUseCase {
 
   async execute({ name, email, password }: UsersProps) {
     const password_hash = await hash(password, 6);
-
     const emailUnique = await this.repository.findUserByEmail(email);
 
     if (emailUnique) {
       throw new EmailAlreadyExistsErro();
     }
 
-    this.repository.create({
+    const user = this.repository.create({
       name,
       email,
       password: password_hash,
     });
+
+    return { user };
   }
 }
