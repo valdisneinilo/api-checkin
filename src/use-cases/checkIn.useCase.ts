@@ -9,7 +9,7 @@ interface IChecInResponse {
   checkIn: Checkin;
 }
 
-export class ChecInUseCase {
+export class CheckInUseCase {
   constructor(private repository: ICheckInsRepository) {}
 
   async execute({ userId, gymId }: IChecInRequest): Promise<IChecInResponse> {
