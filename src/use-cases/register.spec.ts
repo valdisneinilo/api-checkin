@@ -33,9 +33,6 @@ describe("Register Use Case", () => {
       email: "test@example.com",
       password: "123456",
     });
-    /* compare is a function that compare if the password is a hash correctly
-     this function return a boolean
-    and this is a method of bcryptjs */
     const passwordIsHashCorrectly = await compare(
       "123456",
       (
