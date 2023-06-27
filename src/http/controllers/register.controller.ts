@@ -25,5 +25,5 @@ export async function registerController(
     return reply.status(500).send("Internal server error");
   }
 
-  return reply.status(201).send("User created ^^");
+  return reply.status(201).send("😁 User created");
 }
