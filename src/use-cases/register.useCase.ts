@@ -1,5 +1,5 @@
 import { hash } from "bcryptjs";
-import { IUsersRepository } from "@/repositories/user-repository";
+import { IUsersRepository } from "@/repositories/user.repository";
 import { EmailAlreadyExistsErro } from "./errors/register.error";
 
 interface UsersProps {

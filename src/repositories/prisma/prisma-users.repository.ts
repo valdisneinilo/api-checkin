@@ -1,6 +1,6 @@
 import { prisma } from "@/lib/prisma";
 import { Prisma } from "@prisma/client";
-import { IUsersRepository } from "../user-repository";
+import { IUsersRepository } from "../user.repository";
 
 export class PrismaUsersRepository implements IUsersRepository {
   findUserById(id: string) {
