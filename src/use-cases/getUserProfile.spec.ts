@@ -1,5 +1,5 @@
 import { describe, expect, it, beforeEach } from "vitest";
-import { InMemoryUsersRepositoryTest } from "@/repositories/inMemoryRepositoryTests/user-repository-test";
+import { InMemoryUsersRepositoryTest } from "@/repositories/inMemoryRepositoryTests/memory-user-repository-test";
 import { GetUserProfileUseCase } from "./getUserProfile.useCase";
 import { NotFound } from "./errors/notFound.error";
 
