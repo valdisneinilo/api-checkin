@@ -26,8 +26,7 @@ describe("Check In Use Case", () => {
   });
 
   it("should not be able to check in twice in the same day", async () => {
-    const fakeDate = new Date(2023, 0, 1, 21, 0, 0);
-    vi.setSystemTime(fakeDate);
+    vi.setSystemTime(new Date(2023, 0, 1, 21, 0, 0));
 
     await useCase.execute({
       userId: "user-01",
@@ -40,5 +39,23 @@ describe("Check In Use Case", () => {
         gymId: "gym-01",
       })
     ).rejects.toBeInstanceOf(Error);
+  });
+
+  it("should be able to check in but on diferents days", async () => {
+    vi.setSystemTime(new Date(2023, 0, 1, 21, 0, 0));
+
+    await useCase.execute({
+      userId: "user-01",
+      gymId: "gym-01",
+    });
+
+    vi.setSystemTime(new Date(2023, 0, 2, 21, 0, 0));
+
+    await expect(
+      useCase.execute({
+        userId: "user-01",
+        gymId: "gym-01",
+      })
+    ).resolves.toBeTruthy();
   });
 });
