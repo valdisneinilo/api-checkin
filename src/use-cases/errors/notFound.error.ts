@@ -1,5 +1,5 @@
 export class NotFound extends Error {
-  constructor() {
-    super("😅 Resource Not Found!");
+  constructor(name: string) {
+    super(`😅 ${name} Not Found!`);
   }
 }
