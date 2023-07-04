@@ -1,6 +1,6 @@
 import { beforeEach, afterEach, describe, expect, it, vi } from "vitest";
 import { CheckInUseCase } from "./checkIn.useCase";
-import { InMemoryCheckInRepositoryTest } from "@/repositories/inMemoryRepositoryTests/memory-checkIn-repository-test";
+import { InMemoryCheckInRepositoryTest } from "@/repositories/inMemoryRepositoryTests/memory-checkIn-repository";
 import { randomUUID } from "crypto";
 
 let repository: InMemoryCheckInRepositoryTest;
