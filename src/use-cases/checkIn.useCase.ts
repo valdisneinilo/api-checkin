@@ -2,7 +2,7 @@ import { ICheckInsRepository } from "@/repositories/checkIn.repository";
 import { IGymRepository } from "@/repositories/gym.repository";
 import { Checkin } from "@prisma/client";
 import { NotFound } from "./errors/notFound.error";
-import { Decimal } from "@prisma/client/runtime/library";
+import { getDistanceBetweenCoordinates } from "../utils/distance-between";
 
 interface ICheckInRequest {
   userId: string;
@@ -21,20 +21,33 @@ export class CheckInUseCase {
     private gymRepository: IGymRepository
   ) {}
 
-  async execute({ userId, gymId }: ICheckInRequest): Promise<ICheckInResponse> {
-    const gymExists = await this.gymRepository.findGymById(gymId);
-
-    if (!gymExists) {
+  async execute({
+    userId,
+    gymId,
+    userLatitude,
+    userLongitude,
+  }: ICheckInRequest): Promise<ICheckInResponse> {
+    const gym = await this.gymRepository.findGymById(gymId);
+    if (!gym) {
       throw new NotFound("Gym");
     }
 
-    const checkInExists = await this.repository.findByIdUserOnDate(
+    const checkInExistsAlready = await this.repository.findByIdUserOnDate(
       userId,
       new Date()
     );
+    if (checkInExistsAlready) {
+      throw new Error("😉 User already checked today");
+    }
 
-    if (checkInExists) {
-      throw new Error("😉 User already checked in today");
+    const distant = getDistanceBetweenCoordinates(
+      { latitude: userLatitude, longitude: userLongitude },
+      { latitude: gym.latitude.toNumber(), longitude: gym.longitude.toNumber() }
+    );
+
+    const maxDistanceKM = 0.1;
+    if (distant > maxDistanceKM) {
+      throw new Error("🤭 You are too far from the gym");
     }
 
     const checkIn = await this.repository.create({
