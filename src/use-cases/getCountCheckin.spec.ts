@@ -22,7 +22,6 @@ describe("Count Total Check In Use Case", () => {
         gym_id: "gymId-1",
       });
     }
-    console.log(repository.bd.length);
     const { checkIns } = await useCase.execute({ userId: "userId-1" });
     expect(checkIns).toBe(12);
   });
